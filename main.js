@@ -2,31 +2,6 @@ const fs = require('fs');
 const docx = require('docx');
 const readline = require('readline');
 
-const doc = new docx.Document();
-
-doc.addSection({
-	properties: {},
-	children: [
-		new docx.Paragraph({
-			children: [
-				new docx.TextRun('Hello World'),
-				new docx.TextRun({
-					text: 'Foo Bar',
-					bold: true,
-				}),
-				new docx.TextRun({
-					text: `\nGithub is the best`,
-					bold: true,
-				}),
-			],
-		}),
-	],
-});
-
-docx.Packer.toBuffer(doc).then(buffer => {
-	fs.writeFileSync('My Document.docx', buffer);
-});
-
 const readtxt = async () => {
 	const fileStream = fs.createReadStream('input.txt');
 	const words = [[], []];
@@ -49,9 +24,42 @@ const genWordPair = (w1, w2) => [
 		text: w1,
 		bold: true,
 	}),
-	new docx.TextRun('-'),
+	new docx.TextRun('='),
 	new docx.TextRun({
 		text: w2,
 	}),
-	new docx.TextRun(';'),
+	new docx.TextRun('; '),
 ];
+
+const genCheat = async () => {
+	const words = await readtxt();
+	console.log(words);
+	let formattedWords = [];
+	for (let i = 0; i < words[0].length; i++) {
+		formattedWords = [
+			...formattedWords,
+			...genWordPair(words[0][i], words[1][i]),
+		];
+	}
+	console.log(formattedWords);
+
+	return formattedWords;
+};
+
+const generateDoc = async () => {
+	const doc = new docx.Document();
+	const children = await genCheat();
+	doc.addSection({
+		properties: {},
+		children: [
+			new docx.Paragraph({
+				children,
+			}),
+		],
+	});
+	docx.Packer.toBuffer(doc).then(buffer => {
+		fs.writeFileSync('My Document.docx', buffer);
+	});
+};
+
+generateDoc();
