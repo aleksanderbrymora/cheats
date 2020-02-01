@@ -23,23 +23,21 @@ const readtxt = async () => {
 	return words;
 };
 
-const genWordPair = (w1, w2) => {
-	return [
-		new docx.TextRun({
-			text: w1,
-			bold: true,
-		}),
-		new docx.TextRun({
-			text: '=',
-		}),
-		new docx.TextRun({
-			text: w2,
-		}),
-		new docx.TextRun({
-			text: '; ',
-		}),
-	];
-};
+const genWordPair = (w1, w2) => [
+	new docx.TextRun({
+		text: w1,
+		bold: true,
+	}),
+	new docx.TextRun({
+		text: '=',
+	}),
+	new docx.TextRun({
+		text: w2,
+	}),
+	new docx.TextRun({
+		text: '; ',
+	}),
+];
 
 const genCheat = async () => {
 	const words = await readtxt();
@@ -63,8 +61,8 @@ const generateDoc = async () => {
 					basedOn: 'Normal',
 					quickFormat: true,
 					run: {
-						size: 4,
-						color: '990000',
+						size: 3.5,
+						font: 'Ubuntu',
 					},
 				},
 			],
@@ -73,13 +71,41 @@ const generateDoc = async () => {
 
 	const children = await genCheat();
 
-	doc.addSection({
-		children: [
-			new docx.Paragraph({
-				style: 'cheat',
-				children,
+	const paragraphs = new Array(3).fill(
+		new docx.TableCell({
+			children: [
+				new docx.Paragraph({
+					style: 'cheat',
+					children,
+					alignment: docx.AlignmentType.JUSTIFIED,
+				}),
+			],
+			margins: {
+				top: 10,
+				bottom: 10,
+				left: 10,
+				right: 10,
+			},
+			borders: {
+				top: { size: 0.5 },
+				bottom: { size: 0.5 },
+				left: { size: 0.5 },
+				right: { size: 0.5 },
+			},
+		}),
+	);
+
+	const table = new docx.Table({
+		rows: [
+			new docx.TableRow({
+				children: paragraphs,
 			}),
 		],
+		columnWidths: new Array(3).fill(3000),
+	});
+
+	doc.addSection({
+		children: [table],
 	});
 
 	docx.Packer.toBuffer(doc).then(buffer => {
