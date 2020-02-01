@@ -55,27 +55,33 @@ const genCheat = async () => {
 
 const generateDoc = async () => {
 	const doc = new docx.Document({
-		title: 'Dem cheatz',
 		styles: {
-			paragraphStyles: {
-				id: 'cheat',
-				name: 'Cheat',
-				quickFormat: true,
-				run: {
-					size: 4,
+			paragraphStyles: [
+				{
+					id: 'cheat',
+					name: 'Cheat text',
+					basedOn: 'Normal',
+					quickFormat: true,
+					run: {
+						size: 4,
+						color: '990000',
+					},
 				},
-			},
+			],
 		},
 	});
+
 	const children = await genCheat();
-	const cheatPara = new docx.Paragraph({
-		children,
-		style: 'cheat',
-	});
+
 	doc.addSection({
-		properties: {},
-		children: [cheatPara],
+		children: [
+			new docx.Paragraph({
+				style: 'cheat',
+				children,
+			}),
+		],
 	});
+
 	docx.Packer.toBuffer(doc).then(buffer => {
 		fs.writeFileSync('My Document.docx', buffer);
 	});
