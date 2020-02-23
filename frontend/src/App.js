@@ -6,38 +6,38 @@ function App() {
 	const [langTwo, setLangTwo] = useState('');
 	const [json, setJson] = useState('');
 
+	const addWords = () => {
+		setWords([...words, [langOne, langTwo]]);
+		setLangOne('');
+		setLangTwo('');
+	};
+
 	return (
 		<div className='App'>
-			{words.map(() => (
-				<div>
+			{words.map(word => (
+				<div key={word[0] + word[1]}>
 					<input
 						onChange={e => setLangOne(e.target.value)}
 						placeholder='input'
 						autoFocus
-					>
-						{langO}
-					</input>
+					></input>
 					<input
 						placeholder='translate'
 						onChange={e => setLangTwo(e.target.value)}
+						onKeyPress={e => {
+							if (e.key === 'Enter') addWords();
+						}}
 					></input>
 				</div>
 			))}
+			<button onClick={() => addWords}>Add new</button>
+			<br />
 			<p>{langOne}</p>
-			<p>{words.map(word => `${word[0]} - ${word[1]}; `)}</p>
+			<p>{words.map(word => `${word[0]} - ${word[1]};\n`)}</p>
 			<div>
-				<p>Json</p>
+				<h1>Json</h1>
 				<p>{json}</p>
 			</div>
-			<button
-				onClick={() => {
-					setWords([...words, [langOne, langTwo]]);
-					setLangOne('');
-					setLangTwo('');
-				}}
-			>
-				Add new
-			</button>
 			<button
 				id='submit'
 				onClick={() => {
