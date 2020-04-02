@@ -84,6 +84,7 @@ const generateDoc = async words => {
 export default async (req, res) => {
 	console.log(req.body);
 	const document = await generateDoc(req.body);
+	console.log(document);
 	console.log('====== something happened ======');
 	res.setHeader('Content-Disposition', 'attachment; filename=Cheat.docx');
 	res.send(Buffer.from(document, 'base64'));
