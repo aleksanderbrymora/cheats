@@ -7,22 +7,31 @@ const Input = ({
 	handler,
 	autofocus,
 	content,
+	addBlock,
+	deleteBlock,
+	number,
 }) => (
 	<CheatInput>
 		<input
 			value={content}
 			autoFocus={autofocus}
-			onChange={e => handler(e.target.value)}
 			required={required}
 			placeholder={placeholder}
+			onChange={handler}
+			onKeyDown={e => {
+				if (addBlock) addBlock(e);
+				if (deleteBlock) deleteBlock(e);
+			}}
+			id={title + number}
 		/>
-		<p>{title}</p>
+		<label htmlFor={title + number}>{title}</label>
 	</CheatInput>
 );
 
-const CheatInput = styled.div`
+export const CheatInput = styled.fieldset`
 	--padding-main: 0.5rem 0;
 	margin: 1rem 0;
+	border: none;
 	input {
 		width: 90%;
 		border: none;
@@ -39,7 +48,8 @@ const CheatInput = styled.div`
 			color: ${props => props.theme.grayDarker};
 		}
 	}
-	p {
+	label {
+		display: block;
 		padding: var(--padding-main);
 		text-transform: uppercase;
 		font-size: 12px;

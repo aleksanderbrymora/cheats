@@ -2,13 +2,21 @@ import styled from 'styled-components';
 
 import Block from './Block';
 import Add from './AddAnother';
+import CreateButton from './CreateButton';
 
 export default ({ setWords, words }) => (
 	<BlocksContainer>
 		{words.map((pair, index) => (
-			<Block key={index} number={index + 1} pair={pair} />
+			<Block
+				words={words}
+				setWords={setWords}
+				key={index}
+				number={index}
+				pair={pair}
+			/>
 		))}
-		<Add />
+		<Add words={words} setWords={setWords} />
+		<CreateButton words={words} />
 	</BlocksContainer>
 );
 

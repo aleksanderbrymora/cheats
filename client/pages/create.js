@@ -8,7 +8,20 @@ import WordBlocks from '../components/create/WordBlocks/WordBlocks';
 const Create = () => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [words, setWords] = useState([['stuff', 'more stuff']]);
+	const [words, setWords] = useState([
+		{
+			term: 'rzeczy',
+			definition: 'stuff',
+		},
+		{
+			term: 'inne',
+			definition: 'different',
+		},
+		{
+			term: 'nie wiem',
+			definition: 'dunno',
+		},
+	]);
 
 	return (
 		<Layout title={'Create'}>
@@ -25,7 +38,10 @@ const Create = () => {
 
 const GeneralInfo = ({ title, description, setTitle, setDescription }) => (
 	<>
-		<h1>Create new cheatsheet</h1>
+		<h1 id={'general-information'}>Create new cheatsheet</h1>
+		<p id={'general-description'}>
+			Input title and description for the cheatsheet
+		</p>
 		<CheatForm
 			title={title}
 			description={description}
@@ -33,6 +49,11 @@ const GeneralInfo = ({ title, description, setTitle, setDescription }) => (
 			setDescription={setDescription}
 		/>
 		<ImportFromFile />
+		<style jsx>{`
+			p {
+				margin: 0.5rem 0;
+			}
+		`}</style>
 	</>
 );
 

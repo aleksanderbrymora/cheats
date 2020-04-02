@@ -7,8 +7,12 @@ export default () => (
 const ImportFromFile = styled.button`
 	background: none;
 	border: none;
-	margin-top: 2rem;
-	color: ${props => props.theme.pinkAccent};
+	margin-top: 1rem;
+	color: ${props => props.theme.blackMain};
+	transition: color 0.1s ease-in-out;
+	&:hover {
+		color: ${props => props.theme.pinkAccent};
+	}
 	font-size: 14px;
 	cursor: pointer;
 `;

@@ -19,7 +19,26 @@ const Layout = ({ children, title }) => (
 				body {
 					min-height: 100vh;
 					padding: 10px;
-					background-color: #fcfcfc;
+					background-color: ${colors.grayLight};
+				}
+				html {
+					--scrollbarBG: ${colors.grayLight};
+					--thumbBG: ${colors.pinkAccent};
+				}
+				body::-webkit-scrollbar {
+					width: 11px;
+				}
+				body {
+					scrollbar-width: thin;
+					scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+				}
+				body::-webkit-scrollbar-track {
+					background: var(--scrollbarBG);
+				}
+				body::-webkit-scrollbar-thumb {
+					background-color: var(--thumbBG);
+					border-radius: 6px;
+					border: 3px solid var(--scrollbarBG);
 				}
 			`}</style>
 		</Container>
@@ -40,6 +59,7 @@ const Container = styled.div`
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+		scrollbar-color: ${props => props.theme.pinkAccent};
 	}
 	max-width: 1080px;
 	margin: auto;

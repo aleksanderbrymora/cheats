@@ -4,12 +4,12 @@ import styled from 'styled-components';
 const Dropdowns = () => (
 	<DropContainer>
 		<SingleDrop>
-			<DropDescription>From</DropDescription>
-			<Dropdown defaultLang={'pl'} />
+			<DropDescription htmlFor={'from'}>From</DropDescription>
+			<Dropdown langId={'from'} defaultLang={'pl'} />
 		</SingleDrop>
 		<SingleDrop>
-			<DropDescription>To</DropDescription>
-			<Dropdown defaultLang={'en'} />
+			<DropDescription htmlFor={'to'}>To</DropDescription>
+			<Dropdown langId={'to'} defaultLang={'en'} />
 		</SingleDrop>
 	</DropContainer>
 );
@@ -25,7 +25,8 @@ const SingleDrop = styled.div`
 	display: flex;
 `;
 
-const DropDescription = styled.p`
+const DropDescription = styled.label`
+	display: block;
 	font-size: 24px;
 	margin-right: 1rem;
 `;

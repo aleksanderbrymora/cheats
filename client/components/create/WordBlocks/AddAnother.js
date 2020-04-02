@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
-export default () => (
-	<Add>
+export default ({ setWords, words }) => (
+	<Add
+		aria-label='Add another field'
+		onClick={() => setWords([...words, { term: '', definition: '' }])}
+	>
 		<PlusButton>
 			<PlusSVG />
 		</PlusButton>

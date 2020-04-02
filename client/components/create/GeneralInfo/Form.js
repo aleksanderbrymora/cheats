@@ -1,10 +1,13 @@
 import styled from 'styled-components';
-import InputText from './InputText';
+import InputText from '../../shared/Input';
 import Dropdowns from './Dropdowns';
 
 export default ({ setTitle, setDescription, title, description }) => (
 	<>
-		<CheatData>
+		<CheatData
+			aria-labelledby='general-information'
+			aria-describedby='general-description'
+		>
 			<InputText
 				content={title}
 				autofocus={true}

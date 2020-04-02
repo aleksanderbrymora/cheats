@@ -13,14 +13,10 @@ const languages = [
 	},
 ];
 
-export default ({ defaultLang }) => (
-	<Choice defaultValue={defaultLang}>
+export default ({ defaultLang, langId }) => (
+	<Choice id={langId} defaultValue={defaultLang}>
 		{languages.map(lang => (
-			<option
-				// selected={lang.value === defaultLang}
-				value={lang.value}
-				key={lang.value}
-			>
+			<option value={lang.value} key={lang.value}>
 				{lang.emoji} {lang.name}
 			</option>
 		))}
