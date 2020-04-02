@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Input from '../../shared/Input';
 import Trash from '../../shared/Trash';
 
-export default ({ pair, number, words, setWords }) => {
+export default ({ pair, number, words, setWords, focusOnCreateButton }) => {
 	const handleTermChange = e => {
 		const newWords = [...words];
 		newWords[number].term = e.target.value;
@@ -24,6 +24,10 @@ export default ({ pair, number, words, setWords }) => {
 
 	const deleteBlock = e => {
 		if (e.key === 'Delete') handleDelete();
+	};
+
+	const handleFocusOnCreate = e => {
+		if (e.key === 'Enter') focusOnCreateButton();
 	};
 
 	const handleDelete = () => {
@@ -49,6 +53,7 @@ export default ({ pair, number, words, setWords }) => {
 					handler={handleTermChange}
 					deleteBlock={deleteBlock}
 					number={number}
+					handleFocusOnCreate={handleFocusOnCreate}
 				/>
 				<Input
 					required={true}
@@ -59,6 +64,7 @@ export default ({ pair, number, words, setWords }) => {
 					addBlock={addBlock}
 					deleteBlock={deleteBlock}
 					number={number}
+					handleFocusOnCreate={handleFocusOnCreate}
 				/>
 			</Inputs>
 		</Block>

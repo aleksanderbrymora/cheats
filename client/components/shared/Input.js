@@ -10,6 +10,7 @@ const Input = ({
 	addBlock,
 	deleteBlock,
 	number,
+	handleFocusOnCreate,
 }) => (
 	<CheatInput>
 		<input
@@ -21,6 +22,7 @@ const Input = ({
 			onKeyDown={e => {
 				if (addBlock) addBlock(e);
 				if (deleteBlock) deleteBlock(e);
+				if (handleFocusOnCreate) handleFocusOnCreate(e);
 			}}
 			id={title + number}
 		/>
