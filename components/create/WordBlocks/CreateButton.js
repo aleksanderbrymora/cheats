@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import axios from 'axios';
+import Router from 'next/router';
 
 export default ({ words, createButtonRef }) => {
 	const checkForEmpty = () => {
@@ -13,11 +14,12 @@ export default ({ words, createButtonRef }) => {
 	const sanitizeWords = () =>
 		words.filter(pair => !Object.values(pair).includes(''));
 
-	const sendWords = () => {
+	const sendWords = async () => {
 		let finalWords = !checkForEmpty() ? words : sanitizeWords();
 
 		try {
-			axios.post('http://localhost:3000/api/docx', finalWords);
+			await axios.post('http://localhost:3000/api/download', finalWords);
+			Router.push('/api/docx');
 		} catch (e) {
 			console.error(e);
 		}

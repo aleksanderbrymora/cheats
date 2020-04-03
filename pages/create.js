@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import { useState } from 'react';
+import { withSession } from 'next-session';
 
 import CheatForm from '../components/create/GeneralInfo/Form';
 import ImportFromFile from '../components/create/GeneralInfo/ImportFromFile';
@@ -57,4 +58,4 @@ const GeneralInfo = ({ title, description, setTitle, setDescription }) => (
 	</>
 );
 
-export default Create;
+export default withSession(Create);

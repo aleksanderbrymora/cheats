@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import { withSession } from 'next-session';
 
 const Home = () => (
 	<Layout title={'Home'}>
@@ -8,4 +9,4 @@ const Home = () => (
 	</Layout>
 );
 
-export default Home;
+export default withSession(Home);
