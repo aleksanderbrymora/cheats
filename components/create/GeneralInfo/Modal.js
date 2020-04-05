@@ -1,18 +1,28 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-export default ({ setDisplayModal, modalRef }) => {
-	const hideModal = () => setDisplayModal(false);
+export default ({ setDisplayModal, modalRef, importRef }) => {
 	const dropdownRef = useRef(null);
 
-	useEffect(() => dropdownRef.current.focus());
+	const hideModal = () => {
+		setDisplayModal(false);
+		document.body.style.overflow = 'auto';
+		importRef.current.focus();
+	};
+
+	useEffect(() => {
+		document.body.style.overflow = 'hidden';
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+		dropdownRef.current.focus();
+	});
 
 	const placeholderText = `rzeczy=stuff
 inne=different
 nie wiem=dunno`;
 
 	return (
-		<Modal ref={modalRef} aria-hidden={'false'}>
+		<Modal role='dialog' aria-modal='true' ref={modalRef} aria-hidden={'false'}>
 			<div onClick={hideModal} className={'overlay'} />
 			<div aria-describedby={'modal-description'} className={'modal'}>
 				<div className={'screenreader-text'} id={'modal-description'}>
@@ -25,15 +35,15 @@ nie wiem=dunno`;
 				<h3>Paste your text in this format:</h3>
 				<FormatChoice>
 					<p>Term</p>
-					<select ref={dropdownRef}>
+					<select tabIndex='1' ref={dropdownRef}>
 						<option>=</option>
 						<option>==</option>
 						<option>--</option>
 					</select>
 					<p>Definition</p>
 				</FormatChoice>
-				<PasteText placeholder={placeholderText} />
-				<ImportButton>Import</ImportButton>
+				<PasteText tabIndex='1' placeholder={placeholderText} />
+				<ImportButton tabIndex='1'>Import</ImportButton>
 			</div>
 		</Modal>
 	);
@@ -47,7 +57,7 @@ const Modal = styled.div`
 		z-index: 1;
 		position: absolute;
 		width: 100%;
-		height: 100%;
+		min-height: 100vh;
 		left: 0;
 		top: 0;
 		background-color: rgba(0, 0, 0, 0.5);

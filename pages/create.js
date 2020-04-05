@@ -10,6 +10,7 @@ import Modal from '../components/create/GeneralInfo/Modal';
 const Create = () => {
 	const mainRef = useRef(null);
 	const modalRef = useRef(null);
+	const importRef = useRef(null);
 
 	const [displayModal, setDisplayModal] = useState(false);
 	const [title, setTitle] = useState('');
@@ -27,6 +28,10 @@ const Create = () => {
 			term: 'nie wiem',
 			definition: 'dunno',
 		},
+		{
+			term: '',
+			definition: '',
+		},
 	]);
 
 	return (
@@ -40,11 +45,16 @@ const Create = () => {
 					setDisplayModal={setDisplayModal}
 					modalRef={modalRef}
 					mainRef={mainRef}
+					importRef={importRef}
 				/>
 				<WordBlocks setWords={setWords} words={words} />
 			</main>
 			{displayModal && (
-				<Modal modalRef={modalRef} setDisplayModal={setDisplayModal} />
+				<Modal
+					importRef={importRef}
+					modalRef={modalRef}
+					setDisplayModal={setDisplayModal}
+				/>
 			)}
 		</Layout>
 	);
@@ -58,6 +68,7 @@ const GeneralInfo = ({
 	setDisplayModal,
 	modalRef,
 	mainRef,
+	importRef,
 }) => {
 	return (
 		<>
@@ -72,8 +83,8 @@ const GeneralInfo = ({
 				setDescription={setDescription}
 			/>
 			<ImportFromFile
+				importRef={importRef}
 				setDisplayModal={setDisplayModal}
-				modalRef={modalRef}
 				mainRef={mainRef}
 			/>
 			<style jsx>{`
