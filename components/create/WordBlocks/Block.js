@@ -4,29 +4,31 @@ import Input from '../../shared/Input';
 import Trash from '../../shared/Trash';
 
 export default ({ pair, number, words, setWords, focusOnCreateButton }) => {
-	const handleTermChange = e => {
+	const handleTermChange = (e) => {
 		const newWords = [...words];
 		newWords[number].term = e.target.value;
 		setWords(newWords);
 	};
 
-	const handleDefinitionChange = e => {
+	const handleDefinitionChange = (e) => {
 		const newWords = [...words];
 		newWords[number].definition = e.target.value;
 		setWords(newWords);
 	};
 
-	const addBlock = e => {
+	const addBlock = (e) => {
 		if (e.key === 'Tab' && number + 1 === words.length) {
-			setWords([...words, { term: '', definition: '' }]);
+			if (pair.term !== '' && pair.definition !== '') {
+				setWords([...words, { term: '', definition: '' }]);
+			}
 		}
 	};
 
-	const deleteBlock = e => {
+	const deleteBlock = (e) => {
 		if (e.key === 'Delete') handleDelete();
 	};
 
-	const handleFocusOnCreate = e => {
+	const handleFocusOnCreate = (e) => {
 		if (e.key === 'Enter') focusOnCreateButton();
 	};
 

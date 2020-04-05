@@ -1,8 +1,18 @@
 import styled from 'styled-components';
 
-export default () => (
-	<ImportFromFile>+ Import from a text file...</ImportFromFile>
-);
+export default ({ modalRef, mainRef, setDisplayModal }) => {
+	const displayModal = () => {
+		setDisplayModal(true);
+		mainRef.current.setAttribute('aria-hidden', 'true');
+		// console.log(modalRef);
+		// modalRef.current.focus();
+	};
+	return (
+		<ImportFromFile onClick={displayModal}>
+			+ Import from a text file...
+		</ImportFromFile>
+	);
+};
 
 const ImportFromFile = styled.button`
 	background: none;

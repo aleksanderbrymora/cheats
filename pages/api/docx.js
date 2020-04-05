@@ -17,8 +17,6 @@ const prepareChildren = words => {
 			text: '; ',
 		}),
 	]);
-	console.log('=======================================================');
-	console.log(children);
 	return children.flat();
 };
 
@@ -67,9 +65,6 @@ const generateDoc = async words => {
 		}),
 	);
 
-	// console.log('=======================================================');
-	// console.log(paragraphs[0]);
-
 	const table = new docx.Table({
 		rows: [
 			new docx.TableRow({
@@ -82,14 +77,12 @@ const generateDoc = async words => {
 	doc.addSection({
 		children: [table],
 	});
-	// console.log(doc);
 
 	return await docx.Packer.toBase64String(doc);
 };
 
 const handler = async (req, res) => {
 	const document = await generateDoc(req.session.words);
-	// console.log(document);
 	try {
 		res.setHeader('Content-Disposition', 'attachment; filename=Cheat.docx');
 		res.status(200).send(Buffer.from(document, 'base64'));
