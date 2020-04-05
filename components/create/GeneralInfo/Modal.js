@@ -1,20 +1,40 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export default ({ setDisplayModal, modalRef, importRef }) => {
+export default ({ setDisplayModal, modalRef, importRef, setWords }) => {
 	const dropdownRef = useRef(null);
+	const [inputWords, setInputWords] = useState('');
+	const [openedModal, setOpenedModal] = useState(false);
 
 	const hideModal = () => {
+		setOpenedModal(false);
 		setDisplayModal(false);
 		document.body.style.overflow = 'auto';
 		importRef.current.focus();
 	};
 
+	const handleInputWords = () => {
+		const allInputWords = inputWords.split('\n');
+		const trimmedInputWords = allInputWords.map((pair) => pair.trim()).sort();
+		const outWords = trimmedInputWords.map((pair) => {
+			const splitWords = pair.split('=');
+			return {
+				term: splitWords[0],
+				definition: splitWords[1],
+			};
+		});
+		setWords(outWords);
+		hideModal();
+	};
+
 	useEffect(() => {
-		document.body.style.overflow = 'hidden';
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0;
-		dropdownRef.current.focus();
+		if (!openedModal) {
+			setOpenedModal(true);
+			document.body.style.overflow = 'hidden';
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+			dropdownRef.current.focus();
+		}
 	});
 
 	const placeholderText = `rzeczy=stuff
@@ -42,8 +62,15 @@ nie wiem=dunno`;
 					</select>
 					<p>Definition</p>
 				</FormatChoice>
-				<PasteText tabIndex='1' placeholder={placeholderText} />
-				<ImportButton tabIndex='1'>Import</ImportButton>
+				<PasteText
+					onChange={(e) => setInputWords(e.target.value)}
+					value={inputWords}
+					tabIndex='1'
+					placeholder={placeholderText}
+				/>
+				<ImportButton onClick={handleInputWords} tabIndex='1'>
+					Import
+				</ImportButton>
 			</div>
 		</Modal>
 	);

@@ -43,7 +43,6 @@ const Create = () => {
 					setTitle={setTitle}
 					setDescription={setDescription}
 					setDisplayModal={setDisplayModal}
-					modalRef={modalRef}
 					mainRef={mainRef}
 					importRef={importRef}
 				/>
@@ -51,6 +50,7 @@ const Create = () => {
 			</main>
 			{displayModal && (
 				<Modal
+					setWords={setWords}
 					importRef={importRef}
 					modalRef={modalRef}
 					setDisplayModal={setDisplayModal}
@@ -66,7 +66,6 @@ const GeneralInfo = ({
 	setTitle,
 	setDescription,
 	setDisplayModal,
-	modalRef,
 	mainRef,
 	importRef,
 }) => {
