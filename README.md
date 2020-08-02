@@ -1,30 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# Cheats
 
-## Getting Started
+This app is where my programming passion actually started. Not during this particular project, but with many iterations of the idea, such as this one.
+I focused on building it with User Experience and Accessibility in mind. Website is navigable with keys, and important operations are also done through the keyboard, such as deleting the card.
 
-First, run the development server:
+It might be politically incorect, but I still think its a cool project for giving people ability to take pairs of words and turn them into a 'perfectly' formatted cheatsheet.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The app currently is abandoned in favour of much more sophisticated version, that includes database, typescript, tests and all round more professional approach. It will serve as a source of inspiration and well built components. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app is working locally, but the deployed website crashes due to session not working the same as locally for reason unknown to me.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Here is the semi-working version of the app, deployed to Zeit: https://cheats.now.sh/created
 
-## Learn More
+And here is a video of the app converting user input on the website to cheatsheet in Word.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js as a server-side rendering framework and API (which I did not figure out for deployment) 
